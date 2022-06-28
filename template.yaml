@@ -1,0 +1,89 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  ElectionsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      BucketName: aws-elections-project-2022
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+  
+  Table:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      AttributeDefinitions: 
+        - 
+          AttributeName: "username"
+          AttributeType: "S"
+        - 
+          AttributeName: "ci"
+          AttributeType: "S"
+      KeySchema: 
+        - 
+          AttributeName: "username"
+          KeyType: "HASH"
+        - 
+          AttributeName: "ci"
+          KeyType: "RANGE"
+      ProvisionedThroughput: 
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+      TableName: "elections-project-2022"
+      
+  ElectionsApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      Name: website-elections-project-2022
+      DefinitionBody:
+        'Fn::Transform':
+          Name: 'AWS::Include'
+          Parameters:
+            Location: swaggerFile.yaml
+            
+  FunctionLogin:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: function_votes
+      Handler: app.function_votes
+      Runtime: python3.7
+      CodeUri: build
+      Events:
+        Adopt:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ElectionsApi
+            Path: "/Stage"
+            Method: POST
+      Policies:
+        - DynamoDBWritePolicy:
+            TableName: !Ref Table
+            
+  FunctionSignin:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: function_users
+      Handler: app.function_users
+      Runtime: python3.7
+      CodeUri: build
+      Events:
+        Adopt:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ElectionsApi
+            Path: "/Stage"
+            Method: GET
+      Policies:
+        - DynamoDBWritePolicy:
+            TableName: !Ref Table
+            
+Outputs:
+  S3WebsiteURL:
+    Description: Website URL
+    Value: !GetAtt ElectionsBucket.WebsiteURL
+  S3BucketName:
+    Description: Bucket Name
+    Value: !Ref ElectionsBucket

@@ -1,0 +1,33 @@
+SaveUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: save_user
+      Handler: app.save-user
+      Runtime: python3.7
+      CodeUri: build
+      Events:
+        Adopt:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ElectionsApi
+            Path: "/buckets"
+            Method: POST
+      Policies:
+        - DynamoDBWritePolicy:
+            TableName: !Ref Table
+            
+            
+paths:
+  /buckets:
+    post:
+      summary: Saves information about users
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${SaveUser.Arn}/invocations
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST" #never changes
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"
+        
+        
+        aws s3 cp ~/environment/website/changelog.txt s3://aws-elections-project-2022/changelog.txt

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Elections 2022 - Submit Documents</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 30px;
+      width: 80%;
+    }
+    label {
+      margin-bottom: 5px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    var callAPI = (username,ci,votes,center,city,image)=>{
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({"username":username,"ci":ci,"votes":votes,"center":center,"city":city,
+          "image":image});
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        fetch("https://h8x873a8z0.execute-api.us-east-1.amazonaws.com/prod/Stage", requestOptions)
+        .then(response => response.text())
+        .then(result => alert(JSON.parse(result).body))
+        .catch(error => console.log('error', error));
+    }
+  </script>
+
+  <div class="cta">
+    <div class="col-md-6 offset-md-3 mt-5">
+         <a target="_blank">
+            <img src='https://www.caerphilly.gov.uk/CaerphillyDocs/Elections/voting-2022/local-elections2022-web-banner'>
+          </a>
+          <br>
+          <h1 class="section-title">Upload your centre results</h1>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" id="username" name="username" class="form-control" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+              <label>CI</label>
+              <input type="text" id="ci" name="ci" class="form-control" placeholder="Enter ci">
+            </div>
+            <div class="form-group">
+              <label>Number of votes</label>
+              <input type="text" id="votes" name="votes" class="form-control" placeholder="Enter number">
+            </div>
+            <div class="form-group">
+              <label>Center</label>
+              <input type="text" id="center" name="center" class="form-control" placeholder="Enter name of center">
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <select class="form-control" id="city" name="city" required="required">
+                <option>La Paz</option>
+                <option>Santa Cruz</option>
+                <option>Cochabamba</option>
+                <option>Chuquisaca</option>
+                <option>Potosi</option>
+                <option>Oruro</option>
+                <option>Beni</option>
+                <option>Tarija</option>
+                <option>Pando</option>
+              </select>
+            <hr>
+            <div class="form-group mt-3">
+              <label class="mr-2">Upload document for verification:</label>
+              <input type="file" id="image" name="file">
+            </div>
+            <hr>
+            <a class="btn btn-primary" onclick="callAPI(document.getElementById('username').value,document.getElementById('ci').value,document.getElementById('votes').value,document.getElementById('center').value,document.getElementById('city').value,document.getElementById('image').value)">Submit</a>
+            <a class="btn btn-primary" href="index.html">Exit</a>
+      </div> 
+  </div>
+</body>
+
+</html>
