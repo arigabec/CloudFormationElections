@@ -42,7 +42,7 @@ Resources:
       FunctionName: function_votes
       Handler: app.function_votes
       Runtime: python3.7
-      CodeUri: s3://deployments2/f1a190768b17c75f012b0feeead9910f
+      CodeUri: s3://deployments2/9e03f0ae32fd0d033f9bf2a18ae06790
       Events:
         Adopt:
           Type: Api
@@ -61,7 +61,7 @@ Resources:
       FunctionName: function_users
       Handler: app.function_users
       Runtime: python3.7
-      CodeUri: s3://deployments2/f1a190768b17c75f012b0feeead9910f
+      CodeUri: s3://deployments2/9e03f0ae32fd0d033f9bf2a18ae06790
       Events:
         Adopt:
           Type: Api

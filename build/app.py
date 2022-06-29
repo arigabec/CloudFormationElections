@@ -8,13 +8,12 @@ table = dynamodb.Table('elections-project-2022')
 now = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
 
 def function_votes(event, context):
-    body = json.loads(event["body"])
-    username = body["username"]
-    ci = body["ci"]
-    votes = body["votes"]
-    center = body["center"]
-    city = body["city"]
-    image = body["image"]
+    username = event['username']
+    ci = event['ci']
+    votes = event['votes']
+    center = event['center']
+    city = event['city']
+    image = event['image']
     response = table.put_item(
         Item={
             'username': username,
@@ -27,7 +26,11 @@ def function_votes(event, context):
             })
     return {
         'statusCode': 200,
-        'body': json.dumps('Registrando votos del centro ' + center)
+        'body': json.dumps('Registrando votos del centro ' + center),
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
     }
     
 def function_users(event, context):
@@ -42,7 +45,11 @@ def function_users(event, context):
     if 'Item' in response:
         return {
             'statusCode': 200,
-            'body': json.dumps('Bienvenido ' + username)
+            'body': json.dumps('Bienvenido ' + username),
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
         }
     else:
         return {
