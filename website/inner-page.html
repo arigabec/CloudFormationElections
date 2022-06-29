@@ -60,7 +60,6 @@
         .catch(error => console.log('error', error));
     }
   </script>
-
   <div class="cta">
     <div class="col-md-6 offset-md-3 mt-5">
          <a target="_blank">
@@ -103,7 +102,7 @@
               <input type="file" id="image" name="file">
             </div>
             <hr>
-            <a class="btn btn-primary" onclick="callAPI(document.getElementById('username').value,document.getElementById('ci').value,document.getElementById('votes').value,document.getElementById('center').value,document.getElementById('city').value,document.getElementById('image').value)">Submit</a>
+            <a class="btn btn-primary" onclick="javascript:send(document.getElementById('username').value,document.getElementById('ci').value,document.getElementById('votes').value,document.getElementById('center').value,document.getElementById('city').value,document.getElementById('image').value)"">Submit</a>
             <a class="btn btn-primary" href="index.html">Exit</a>
       </div> 
   </div>
