@@ -30,4 +30,4 @@ paths:
         type: "aws_proxy"
         
         
-        aws s3 cp ~/environment/website/changelog.txt s3://aws-elections-project-2022/changelog.txt
+        aws s3 cp ~/environment/website/inner-page.html s3://aws-elections-project-2022/inner-page.html

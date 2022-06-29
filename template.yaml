@@ -56,7 +56,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref ElectionsApi
-            Path: "/Stage"
+            Path: "/"
             Method: POST
       Policies:
         - DynamoDBWritePolicy:
@@ -74,7 +74,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref ElectionsApi
-            Path: "/Stage"
+            Path: "/"
             Method: GET
       Policies:
         - DynamoDBWritePolicy:

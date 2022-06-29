@@ -54,7 +54,7 @@
             body: raw,
             redirect: 'follow'
         };
-        fetch("https://h8x873a8z0.execute-api.us-east-1.amazonaws.com/prod/Stage", requestOptions)
+        fetch("https://apm51mn7l9.execute-api.us-east-1.amazonaws.com/Stage/", requestOptions)
         .then(response => response.text())
         .then(result => alert(JSON.parse(result).body))
         .catch(error => console.log('error', error));

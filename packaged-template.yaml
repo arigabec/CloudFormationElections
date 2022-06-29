@@ -35,21 +35,21 @@ Resources:
         Fn::Transform:
           Name: AWS::Include
           Parameters:
-            Location: s3://deployments2/e34333aef91336923f255b23cfe30e96
+            Location: s3://deployments2/bd1d439c84f698cb44c6efcdb0c3d1d8
   FunctionLogin:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: function_votes
       Handler: app.function_votes
       Runtime: python3.7
-      CodeUri: s3://deployments2/6c904b0436cac1b332218d9fb3d248d2
+      CodeUri: s3://deployments2/7822c8492ea150b6658ee4c8ab5ddb04
       Events:
         Adopt:
           Type: Api
           Properties:
             RestApiId:
               Ref: ElectionsApi
-            Path: /Stage
+            Path: /
             Method: POST
       Policies:
       - DynamoDBWritePolicy:
@@ -61,14 +61,14 @@ Resources:
       FunctionName: function_users
       Handler: app.function_users
       Runtime: python3.7
-      CodeUri: s3://deployments2/6c904b0436cac1b332218d9fb3d248d2
+      CodeUri: s3://deployments2/7822c8492ea150b6658ee4c8ab5ddb04
       Events:
         Adopt:
           Type: Api
           Properties:
             RestApiId:
               Ref: ElectionsApi
-            Path: /Stage
+            Path: /
             Method: GET
       Policies:
       - DynamoDBWritePolicy:
